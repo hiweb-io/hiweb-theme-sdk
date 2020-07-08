@@ -1,0 +1,177 @@
+--- Events to listen:
+
+/**
+* Event: init-invoice-payment
+* Trigger when a payment request for an invoice is initialized
+*
+* @preturn object Payment gateway document (with meta)
+*/
+
+/**
+* Event: shippings-loaded
+* Trigger when shippings loaded (checkout page)
+*
+* @return object Shippings document
+*/
+
+/**
+* Event: payment-gateways-loaded
+* Trigger when payment gateways are loaded (checkout page)
+*
+* @return object Payment gateways document
+*/
+
+/**
+* Event: address-saved
+* Trigger when an address is saved sucessfully
+*
+* @return object address document
+*/
+
+/**
+* Event: save-address-failed
+* Trigger if failed to save address
+*
+* @return object exception
+*/
+
+/**
+* Event: invoice-saved
+* Trigger when invoice is created/updated
+* 
+* @return object Invoice document
+*/
+
+/**
+* Event: invoice-loaded
+* Trigger when invoice is loaded
+*
+* @return object Invoice document
+*/
+
+/**
+* Event: save-invoice-failed
+* Trigger if when failed to save invoice
+*
+* @return object exception
+*/
+
+/**
+* Event: cart-item-created
+* Trigger when an item is added to cart successfully
+*
+* @return object Cart item document
+*/
+
+/**
+* Event: cart-item-create-failed
+* Trigger when failed to create cart item
+*
+* @return object Exception
+*/
+
+/**
+* Event: cart-item-deleted
+* Trigger when an item is deleted
+*
+* @return object Cart item resource
+*/
+
+/**
+* Event: delete-cart-item-failed
+*
+* @return exception
+*/
+
+/**
+* Event: cart-loaded
+*
+* @return object Cart document
+*/
+
+/**
+* Event: reload-cart-failed
+*
+* @return void
+*/
+
+/**
+* Event: discount-applied
+*
+* @return object Cart document
+*/
+
+/**
+* Event: apply-discount-failed
+*
+* @return exception
+*/
+
+/**
+* Event: discount-removed
+*
+* @return object Cart document
+*/
+
+/**
+* Event: remove-discount-failed
+*
+* @return exception
+*/
+
+/**
+* Event: view-product
+*
+* @return object Product document
+*/
+
+/**
+* Event: view-collection
+*
+* @return object Collection document
+*/
+
+/**
+* Event: view-collection-products
+*
+* @return object Collection products document
+*/
+
+/*
+* Event: view-collections
+*
+* @return object Collections document
+*/
+
+/**
+* Event: view-pages
+*
+* @return object Pages document
+*/
+
+/**
+* Event: view-page
+*
+* @return object Page document
+*/
+
+/**
+* Event: view-post
+*
+* @return object Post document
+*/
+--- Events to emit:
+
+/**
+* Event: reload-cart
+* Emit this event to reload cart data
+*
+* @param void
+*/
+
+/**
+* Event: set-cart-id
+* Emit this event to force set cart id
+*
+* @param string Cart ID
+*/
