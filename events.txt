@@ -1,5 +1,132 @@
 --- Events to listen:
 
+--- Post events
+
+/**
+* Event: view-post
+*
+* @return object Post document
+*/
+
+/**
+* Event: view-posts
+*
+* @return object Posts document
+*/
+
+--- Page events
+
+/**
+* Event: view-pages
+*
+* @return object Pages document
+*/
+
+/**
+* Event: view-page
+*
+* @return object Page document
+*/
+
+--- Product events
+
+/**
+* Event: view-product
+*
+* @return object Product document
+*/
+
+/**
+* Event: view-products
+*
+* @return object Products document
+*/
+
+--- Collection events
+
+/**
+* Event: view-collection
+*
+* @return object Collection document
+*/
+
+/**
+* Event: view-collection-products
+*
+* @return object Collection products document
+*/
+
+/*
+* Event: view-collections
+*
+* @return object Collections document
+*/
+
+--- Cart events:
+/**
+* Event: cart-loaded
+*
+* @return object Cart document
+*/
+
+/**
+* Event: cart-item-created
+* Trigger when an item is added to cart successfully
+*
+* @return object Cart item document
+*/
+
+/**
+* Event: cart-item-create-failed
+* Trigger when failed to create cart item
+*
+* @return object Exception
+*/
+
+/**
+* Event: cart-item-deleted
+* Trigger when an item is deleted
+*
+* @return object Cart item resource
+*/
+
+/**
+* Event: delete-cart-item-failed
+*
+* @return exception
+*/
+
+/**
+* Event: reload-cart-failed
+*
+* @return void
+*/
+
+/**
+* Event: discount-applied
+*
+* @return object Cart document
+*/
+
+/**
+* Event: apply-discount-failed
+*
+* @return exception
+*/
+
+/**
+* Event: discount-removed
+*
+* @return object Cart document
+*/
+
+/**
+* Event: remove-discount-failed
+*
+* @return exception
+*/
+
+--- Checkout events:
 /**
 * Event: init-invoice-payment
 * Trigger when a payment request for an invoice is initialized
@@ -51,115 +178,11 @@
 
 /**
 * Event: save-invoice-failed
-* Trigger if when failed to save invoice
+* Trigger when failed to save invoice
 *
 * @return object exception
 */
 
-/**
-* Event: cart-item-created
-* Trigger when an item is added to cart successfully
-*
-* @return object Cart item document
-*/
-
-/**
-* Event: cart-item-create-failed
-* Trigger when failed to create cart item
-*
-* @return object Exception
-*/
-
-/**
-* Event: cart-item-deleted
-* Trigger when an item is deleted
-*
-* @return object Cart item resource
-*/
-
-/**
-* Event: delete-cart-item-failed
-*
-* @return exception
-*/
-
-/**
-* Event: cart-loaded
-*
-* @return object Cart document
-*/
-
-/**
-* Event: reload-cart-failed
-*
-* @return void
-*/
-
-/**
-* Event: discount-applied
-*
-* @return object Cart document
-*/
-
-/**
-* Event: apply-discount-failed
-*
-* @return exception
-*/
-
-/**
-* Event: discount-removed
-*
-* @return object Cart document
-*/
-
-/**
-* Event: remove-discount-failed
-*
-* @return exception
-*/
-
-/**
-* Event: view-product
-*
-* @return object Product document
-*/
-
-/**
-* Event: view-collection
-*
-* @return object Collection document
-*/
-
-/**
-* Event: view-collection-products
-*
-* @return object Collection products document
-*/
-
-/*
-* Event: view-collections
-*
-* @return object Collections document
-*/
-
-/**
-* Event: view-pages
-*
-* @return object Pages document
-*/
-
-/**
-* Event: view-page
-*
-* @return object Page document
-*/
-
-/**
-* Event: view-post
-*
-* @return object Post document
-*/
 --- Events to emit:
 
 /**

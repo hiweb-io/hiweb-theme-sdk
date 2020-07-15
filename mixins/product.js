@@ -131,7 +131,7 @@ export default {
     *
     * @param integer Attemps (will stop if >= 3)
     */
-    async addToCart(attemps) {
+    async addToCart() {
 
       if (!this.selectedVariant) {
         this.createCartItemErrors = ['No product/variant selected.'];

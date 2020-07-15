@@ -19,8 +19,8 @@ export default {
       collectionErrors: [],
 
       // Collection products
-      collectionProductsDocument: null,
       isLoadingCollectionProducts: false,
+      collectionProductsDocument: null,
       collectionProductsErrors: [],
       collectionProductsFilter: [],
       collectionProductsSort: '-created_at'

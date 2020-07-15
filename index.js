@@ -43,14 +43,15 @@ export default {
     Vue.prototype.$themeConfig = config;
 
     // Api endpoint
-    let endpoint = window.$hiwebApiEndpoint || process.env.VUE_APP_API_ENDPOINT;
+    const endpoint = (window.$hiwebApiEndpoint || process.env.VUE_APP_API_ENDPOINT) || 'https://hiweb.io/api/';
     Vue.prototype.$apiEndpoint = endpoint;
 
     // JsonApi class
     Vue.prototype.$JsonApi = JsonApi;
 
     // Http client
-    Vue.prototype.$http = new Http(endpoint);
+    const http = new Http(endpoint);
+    Vue.prototype.$http = http;
 
     // Route $linkTo helper
     Vue.prototype.$linkTo = this.linkTo;
@@ -59,8 +60,8 @@ export default {
     Vue.prototype.$event = event;
 
     // Cart document is global
-    let cartDocument = new JsonApi;
-    let cartResource = cartDocument.makeResource();
+    const cartDocument = new JsonApi;
+    const cartResource = cartDocument.makeResource();
     cartResource.setType('carts');
     cartResource.setAttributes({
       item_count: 0
@@ -145,9 +146,14 @@ export default {
 
     }, false);
 
-  },
-
-  linkTo() {
-
+    // Export some hiweb helpers to window
+    window.$hiweb = {
+      JsonApi,
+      http,
+      event,
+      image,
+      cookie,
+      currency
+    };
   }
 }

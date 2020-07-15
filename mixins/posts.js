@@ -5,7 +5,7 @@ export default {
 
       usingPostsMixin: false,
       isLoadingPosts: false,
-      postsDocument: false,
+      postsDocument: null,
       postsErrors: [],
       postsSort: '-created_at',
 
@@ -50,7 +50,7 @@ export default {
         this.postsDocument = await this.$http.collection('posts', {
           params: {
             sort: this.postsSort,
-            post: this.post,
+            page: this.page,
             limit: this.limit
           }
         });
@@ -69,7 +69,7 @@ export default {
 
   watch: {
 
-    post: function() {
+    page: function() {
       this._getPosts();
     },
 

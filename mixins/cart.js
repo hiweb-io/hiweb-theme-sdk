@@ -226,7 +226,7 @@ export default {
         return null;
       }
 
-      return this.cart.getRelationshipData('cart_items');
+      return this.cart.getRelationshipData('cart_items') || [];
 
     }
   }  

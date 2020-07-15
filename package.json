@@ -1,6 +1,6 @@
 {
   "name": "hiweb-theme-sdk",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "description": "Hiweb Theme SDK (VueJS)",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   "homepage": "https://github.com/hiweb-io/hiweb-theme-sdk#readme",
   "dependencies": {
     "js-cookie": "^2.2.1",
-    "jsonapi-client-js": "^1.1.0-dev.1",
+    "jsonapi-client-js": "^1.1.0-dev.2",
     "moment": "^2.26.0",
     "vuex": "^3.4.0"
   }
