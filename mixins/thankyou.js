@@ -33,6 +33,9 @@ export default {
       // Invoice loaded
       this.$event.$on('invoice-loaded', async invoiceDocument => {
 
+        // Trigger payment successful event
+        this.$event.$emit('payment-successful', invoiceDocument);
+
         // If is paypal
         let invoice = invoiceDocument.getData();
         if (invoice.getAttribute('gateway') === 'paypal' && invoice.getAttribute('status') === 'pending') {
