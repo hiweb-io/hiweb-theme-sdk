@@ -74,6 +74,24 @@ class Config {
   }
 
   /**
+  * Publish config data to control panel
+  *
+  * @return void
+  */
+  publish() {
+
+    if (parent === window) {
+      return;
+    }
+
+    parent.postMessage(JSON.stringify({
+      hiwebMessageEvent: 'retrieve-theme-config-data',
+      data: this.compile()
+    }), 'https://hiweb.io/');
+
+  }
+
+  /**
   * Build a new config section
   *
   * @param string
