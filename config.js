@@ -87,7 +87,7 @@ class Config {
     parent.postMessage(JSON.stringify({
       hiwebMessageEvent: 'retrieve-theme-config-data',
       data: this.compile()
-    }), 'https://hiweb.io/');
+    }), process.env.VUE_APP_ADMIN_PANEL_URL || 'https://hiweb.io/');
 
   }
 
