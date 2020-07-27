@@ -1,7 +1,7 @@
 <template>
   <div v-if="block" class="hiweb-theme-block" :id="'hiweb-theme-block-' + block">
-    <template v-if="blockInstance && Array.isArray(blockInstance.getData())">
-      <component v-for="component in blockInstance.getData()" v-bind:is="component.getKey()" :component="component" />
+    <template v-if="blockInstance && Array.isArray(blockInstance.getData())" v-for="component in blockInstance.getData()">
+      <component v-bind:is="component.getKey()" :component="component" />
     </template>
   </div>
 </template>
