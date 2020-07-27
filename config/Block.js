@@ -19,6 +19,9 @@ class Block {
       // { component: ..., config: ... }
     ];
 
+    // Default data
+    this.defaultData = [];
+
     // Block components
     this.components = [];
   }
@@ -27,16 +30,36 @@ class Block {
   * Set block data
   *
   * @param array
-  * @return bool
+  * @return void
   */
   setData(data) {
+    this.data = this.parseData(data);
+  }
+
+  /**
+  * Set default data
+  *
+  * @param array
+  * @return void
+  */
+  setDefaultData(data) {
+    this.defaultData = this.parseData(data);
+  }
+
+  /**
+  * Parse data
+  *
+  * @param array
+  * @return array
+  */
+  parseData(data) {
 
     // Data must be an array
     if (!Array.isArray(data)) {
       return;
     }
 
-    this.data = data.filter(componentData => {
+    return data.filter(componentData => {
 
       // No component name set
       if (typeof componentData.component !== 'string') {
@@ -106,7 +129,7 @@ class Block {
   * @return object
   */
   getData() {
-    return this.data;
+    return this.data.length ? this.data : this.defaultData;
   }
 
   /**
