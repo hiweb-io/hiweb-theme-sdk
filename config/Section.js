@@ -1,4 +1,5 @@
 import Config from './Config';
+import Block from './Block';
 
 class Section {
 
@@ -7,7 +8,8 @@ class Section {
     // Section data
     this.data = {
       label, page,
-      config: []
+      config: [],
+      blocks: []
     };
   }
 
@@ -32,6 +34,8 @@ class Section {
       return;
     }
 
+    let blockData = (typeof data.blocks !== 'undefined' && Array.isArray(data.blocks)) ? data.blocks : [];
+
     this.data = {
       label: data.label,
       page: data.page,
@@ -45,7 +49,21 @@ class Section {
         let config = new Config(c.handle);
         config.setData(c);
         return config;
-      })
+      }),
+      blocks: blockData.map(b => {
+
+        if (typeof b !== 'object' || !b.handle || !b.label || !b.data || !Array.isArray(b.data)) {
+          return null;
+        }
+
+        let block = new Block(b.handle, b.label);
+        if (!block.setData(b.data)) {
+          return null;
+        }
+
+        return block;
+
+      }).filter(b => b ? true : false)
     };
   }
 
@@ -60,15 +78,51 @@ class Section {
       return c.getData();
     });
 
+    let blocks = this.data.blocks.map(b => {
+      return b.compile();
+    });
+
     return {
       label: this.data.label, 
       page: this.data.page, 
-      config
+      config, blocks
     }
   }
 
   /**
+  * Build new block
+  *
+  * @param string Block key
+  * @param string Block label
+  * @param string Block handle string
+  */
+  block(handle, label, callback) {
+    
+    let block = new Block(handle, label);
+
+    if (typeof callback === 'function') {
+      callback(block);
+    }
+
+    this.data.blocks.push(block);
+  }
+
+  /**
+  * Get block
+  *
+  * @param string
+  * @return object|null
+  */
+  getBlock(handle) {
+    return this.data.blocks.find(b => {
+      return b.getHandle() === handle;
+    });
+  }
+
+  /**
   * Build new config
+  *
+  * @param string
   */
   config(handle) {
 

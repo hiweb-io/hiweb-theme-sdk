@@ -66,11 +66,11 @@ export default {
         this.$event.$emit('set-cart-id', this.cartId);
       }
 
-      // Trigger view -checkout event
-      this.$event.$emit('view-checkout');
-
       // Pre-filled addresses
       this.$event.$on('cart-loaded', cartDocument => {
+
+        // Trigger view -checkout event
+        this.$event.$emit('view-checkout', cartDocument);
 
         let invoice = cartDocument.getData().getRelationshipData('invoice');
         if (!invoice) {

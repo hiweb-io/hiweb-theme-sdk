@@ -35,12 +35,18 @@ import str from './helpers/str';
 import reloadCartListener from './listeners/reload-cart-listener';
 import setCartIdListener from './listeners/set-cart-id-listener';
 
+// Theme block manager
+import HiwebThemeBlock from './components/HiwebThemeBlock';
+
 export default {
 
   install(Vue) {
 
     // Theme config
     Vue.prototype.$themeConfig = config;
+
+    // Register global components
+    Vue.component('hiweb-theme-block', HiwebThemeBlock);
 
     // Api endpoint
     const endpoint = (window.$hiwebApiEndpoint || process.env.VUE_APP_API_ENDPOINT) || 'https://hiweb.io/api/';

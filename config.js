@@ -113,6 +113,27 @@ class Config {
   }
 
   /**
+  * Get block
+  *
+  * @param string
+  * @return object
+  */
+  getBlock(handle) {
+
+    for (let i = 0; i < this.data.length; i++) {
+
+      let section = this.data[i];
+      let block = section.getBlock(handle);
+      if (block) {
+        return block;
+      }
+
+    }
+
+    return null;
+  }
+
+  /**
   * Get config by handle string
   *
   * @param string
