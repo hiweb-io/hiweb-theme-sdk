@@ -1,3 +1,5 @@
+import { JsonApi } from 'jsonapi-client-js';
+
 class Config {
 
   constructor(handle) {
@@ -30,6 +32,7 @@ class Config {
   * Get config data
   */
   getData() {
+
     let data = JSON.parse(JSON.stringify(this.data));
     if (data.value === null) {
       data.value = this.defaultValue;
@@ -57,6 +60,19 @@ class Config {
           ]
         }
       ];
+    }
+
+    // Image selector
+    if (data.driver === 'image-selector' && Array.isArray(data.value)) {
+
+      // Build document
+      let imageDocument = new JsonApi;
+      data.value = data.value.map(imageData => {
+        let imageResource = imageDocument.makeResource();
+        imageResource.setType('images');
+        imageResource.setAttributes(imageData);
+        return imageResource;
+      });
     }
 
     return data;
