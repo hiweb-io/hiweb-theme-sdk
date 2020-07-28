@@ -12,6 +12,10 @@ export default {
       return require('../assets/img/default.png');
     }
 
+    if (!imageResource.isResource) {
+      return imageResource.url + imageResource.path;
+    }
+
     return imageResource.getAttribute('url') + imageResource.getAttribute('path');
   },
 
