@@ -8,10 +8,10 @@ class Config {
     this.data = [];
 
     // If theme config injected to window super object
-    if (typeof window.$themeConfig !== 'undefined') {
+    if (typeof window.$hiweb === 'object' && typeof window.$hiweb.themeConfig !== 'undefined') {
 
       // Parse
-      this.parse(window.$themeConfig);
+      this.parse(window.$hiweb.themeConfig);
     }
   }
 
