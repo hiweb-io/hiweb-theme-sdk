@@ -34,37 +34,28 @@ class Section {
       return;
     }
 
+    this.data.label = data.label;
+    this.data.page = data.page;
+    this.data.config = data.config.map(c => {
+
+      if (!c.handle) {
+        console.log('Failed to parse config. Config handle string cannot be null');
+        return;
+      }
+
+      let config = new Config(c.handle);
+      config.setData(c);
+      return config;
+    });
+
     let blockData = (typeof data.blocks !== 'undefined' && Array.isArray(data.blocks)) ? data.blocks : [];
+    this.data.blocks = blockData.map(b => {
 
-    this.data = {
-      label: data.label,
-      page: data.page,
-      config: data.config.map(c => {
+      let block = new Block(b.handle, b.label);
+      block.setData(b.data);
+      return block;
 
-        if (!c.handle) {
-          console.log('Failed to parse config. Config handle string cannot be null');
-          return;
-        }
-
-        let config = new Config(c.handle);
-        config.setData(c);
-        return config;
-      }),
-      blocks: blockData.map(b => {
-
-        if (typeof b !== 'object' || !b.handle || !b.label || !b.data || !Array.isArray(b.data)) {
-          return null;
-        }
-
-        let block = new Block(b.handle, b.label);
-        if (!block.setData(b.data)) {
-          return null;
-        }
-
-        return block;
-
-      }).filter(b => b ? true : false)
-    };
+    });
   }
 
   /**

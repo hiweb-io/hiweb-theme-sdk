@@ -7,10 +7,11 @@ class Component {
   *
   * @param string Vue component name
   */
-  constructor(componentName) {
+  constructor(componentName, componentLabel) {
 
     this.data = {
       component: componentName,
+      label: componentLabel,
       config: []
     };
   }
@@ -37,6 +38,7 @@ class Component {
 
     return {
       component: this.data.component,
+      label: this.data.label,
       config
     }
   }

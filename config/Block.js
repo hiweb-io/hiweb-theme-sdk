@@ -145,6 +145,10 @@ class Block {
 
     let data = this.data.map(d => {
 
+      if (d instanceof Component) {
+        return d.compile();
+      }
+
       let config = [];
 
       if (Array.isArray(d.config)) {
@@ -183,10 +187,10 @@ class Block {
   * @param string Component name
   * @param function Config callback
   */
-  register(componentName, callback) {
+  register(componentName, componentLabel, callback) {
 
     // Create component
-    let component = new Component(componentName);
+    let component = new Component(componentName, componentLabel);
 
     if (typeof callback === 'function') {
       callback(component);

@@ -137,6 +137,7 @@ export default {
 
     // Listen to window set-theme-config event
     window.addEventListener('message', event => {
+
       try {
 
         let data = JSON.parse(event.data);
