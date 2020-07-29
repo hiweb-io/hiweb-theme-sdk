@@ -2,7 +2,7 @@
   <div v-if="block" class="hiweb-theme-block" :id="'hiweb-theme-block-' + block">
     <template v-if="blockInstance && Array.isArray(blockInstance.getData())">
       <template v-for="component in blockInstance.getData()">
-        <component v-bind:is="component.getKey()" :component="component" />
+        <component v-bind:is="component.getKey()" :component="makeComponent(component)" />
       </template>
     </template>
   </div>
@@ -17,6 +17,35 @@ export default {
     return {
       blockInstance: null,
     };
+  },
+
+  methods: {
+
+    makeComponent(component) {
+
+      // If no config
+      if (!component.getConfigData().length) {
+
+        // Try to insert default config
+        this.blockInstance.getComponents().forEach(baseComponent => {
+
+          if (component.getKey() !== baseComponent.getKey()) {
+            return;
+          }
+
+          // Share default config
+          baseComponent.getConfigData().forEach(c => {
+            let config = component.config(c.getHandle());
+            config.setData(c.getData());
+          });
+
+        });
+
+      }
+
+      return component;
+    }
+
   },
 
   created() {

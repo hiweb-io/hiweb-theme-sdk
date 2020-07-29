@@ -133,6 +133,15 @@ class Block {
   }
 
   /**
+  * Get block available components
+  *
+  * @return array
+  */
+  getComponents() {
+    return this.components || [];
+  }
+
+  /**
   * Compile to raw data
   *
   * @return object

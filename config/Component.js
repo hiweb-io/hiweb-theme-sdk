@@ -32,7 +32,7 @@ class Component {
   */
   compile() {
 
-    let config = this.data.config.map(c => {
+    let config = this.getConfigData().map(c => {
       return c.getData();
     });
 
@@ -56,7 +56,7 @@ class Component {
   }
 
   /**
-  * Component config
+  * Build component config
   *
   * @param string Handle
   */
@@ -64,6 +64,15 @@ class Component {
     let config = new Config(handle);
     this.data.config.push(config);
     return config;
+  }
+
+  /**
+  * Get config data
+  *
+  * @return array
+  */
+  getConfigData() {
+    return this.data.config || [];
   }
 
   /**
