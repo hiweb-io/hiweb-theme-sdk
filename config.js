@@ -1,4 +1,5 @@
 import Section from './config/Section';
+import { JsonApi } from 'jsonapi-client-js';
 
 class Config {
 
@@ -13,6 +14,7 @@ class Config {
       // Parse
       this.parse(window.$hiweb.themeConfig);
     }
+
   }
 
   /**

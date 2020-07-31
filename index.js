@@ -153,6 +153,25 @@ export default {
 
     }, false);
 
+    // Listen to window set-menus-document event
+    this.setMenusDocument();
+    window.addEventListener('message', event => {
+
+      try {
+
+        let data = JSON.parse(event.data);
+        if (typeof data !== 'object' || data.hiwebMessageEvent !== 'set-menus-document') {
+          return;
+        }
+
+        // Reset menusDocument
+        store.commit('setMenusDocument', new JsonApi(data.data));
+        window.dispatchEvent(new Event('force-update'));
+
+      } catch (e) {}
+
+    }, false);
+
     // Export some hiweb helpers to window
     window.$hiweb = {
       JsonApi,
@@ -162,5 +181,45 @@ export default {
       cookie,
       currency
     };
+  },
+
+  /**
+  * Set menus document
+  */
+  setMenusDocument() {
+
+    if (store.state.menusDocument) {
+      return;
+    }
+
+    // If menusDocument injected
+    if (typeof window.$hiweb === 'object' && typeof window.$hiweb.menusDocument === 'object') {
+      store.commit('setMenusDocument', new JsonApi(window.$hiweb.menusDocument));
+    } else {
+
+      // Example menu if no data set
+      let menusDocument = new JsonApi();
+      let exampleMenu = menusDocument.makeResource();
+      exampleMenu.setId('example');
+      exampleMenu.setType('menus');
+      exampleMenu.setAttributes({
+        title: 'Example menu',
+        handle: 'example',
+        menu_links: [
+          {
+            url: '/',
+            text: 'Home'
+          },
+          {
+            url: '/pages',
+            text: 'Pages'
+          }
+        ]
+      });
+      menusDocument.setData([exampleMenu]);
+
+      store.commit('setMenusDocument', menusDocument);
+    }
+
   }
 }

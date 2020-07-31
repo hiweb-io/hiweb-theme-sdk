@@ -5,8 +5,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+
+    // Cart document
     cartDocument: null,
     isLoadingCart: false,
+
+    // Menus document
+    menusDocument: null
   },
   mutations: {
 
@@ -16,6 +21,10 @@ export default new Vuex.Store({
 
     setIsLoadingCart(state, is) {
       state.isLoadingCart = is ? true : false;
+    },
+
+    setMenusDocument(state, d) {
+      state.menusDocument = d;
     }
 
   }

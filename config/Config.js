@@ -1,4 +1,5 @@
 import { JsonApi } from 'jsonapi-client-js';
+import store from '../store';
 
 class Config {
 
@@ -39,27 +40,22 @@ class Config {
     }
 
     // Default value for menu-selector
-    if (data.driver === 'menu-selector' && (!data.value || !Array.isArray(data.value))) {
-      data.value = [
-        {
-          text: 'Home',
-          url: '/'
-        },
-        {
-          text: 'Pages',
-          url: '/pages',
-          children: [
-            {
-              text: 'Home (child)',
-              url: '/'
-            },
-            {
-              text: 'Home (child)',
-              url: '/'
-            }
-          ]
+    if (data.driver === 'menu-selector') {
+
+      // No id set
+      if (!data.value) {
+        data.value = 'example';
+      }
+
+      // Value (id) is set
+      let menusDocument = store.state.menusDocument;
+      if (data.value && menusDocument) {
+        let menu = menusDocument.findResource('menus', data.value);
+        if (menu) {
+          data.value = menu.getAttribute('menu_links');
         }
-      ];
+      }
+      
     }
 
     return data;
