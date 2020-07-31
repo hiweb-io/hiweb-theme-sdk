@@ -8,13 +8,6 @@ class Config {
     // Config data
     this.data = [];
 
-    // If theme config injected to window super object
-    if (typeof window.$hiweb === 'object' && typeof window.$hiweb.themeConfig !== 'undefined') {
-
-      // Parse
-      this.parse(window.$hiweb.themeConfig);
-    }
-
   }
 
   /**
@@ -82,15 +75,24 @@ class Config {
   */
   publish() {
 
-    if (parent === window) {
+    // Send config data to manager
+    if (parent !== window) {
+      parent.postMessage(JSON.stringify({
+        hiwebMessageEvent: 'retrieve-theme-config-data',
+        data: this.compile()
+      }), process.env.VUE_APP_ADMIN_PANEL_URL || 'https://hiweb.io/');
       return;
     }
 
-    parent.postMessage(JSON.stringify({
-      hiwebMessageEvent: 'retrieve-theme-config-data',
-      data: this.compile()
-    }), process.env.VUE_APP_ADMIN_PANEL_URL || 'https://hiweb.io/');
+    // If theme config injected to window super object
+    if (typeof window.$hiweb === 'object' && typeof window.$hiweb.themeConfig !== 'undefined') {
 
+      // Parse
+      this.parse(window.$hiweb.themeConfig);
+
+      // Update DOM
+      window.dispatchEvent(new Event('force-update'));
+    }
   }
 
   /**
