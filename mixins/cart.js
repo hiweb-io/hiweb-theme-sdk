@@ -115,10 +115,6 @@ export default {
     */
     async createCartItem(variantId, quantity) {
 
-      // No cart id - ignore
-      if (!this.$cookie.get('cart-id')) {
-        return;
-      }
 
       // Is loading cart state
       store.commit('setIsLoadingCart', true);
@@ -135,10 +131,16 @@ export default {
         cartItemResource.setAttributes({
           quantity: quantity || 1
         });
-        cartItemResource.setRelationship('cart', {
-          type: 'carts',
-          id: this.$cookie.get('cart-id')
-        });
+
+        // Set cart relationship if present
+        const cartId = this.$cookie.get('cart-id');
+        if (cartId) {
+          cartItemResource.setRelationship('cart', {
+            type: 'carts',
+            id: cartId
+          });
+        }
+        
         cartItemResource.setRelationship('variant', {
           type: 'variants',
           id: variantId
@@ -147,6 +149,9 @@ export default {
 
         // Send request
         let cartItemResponseDocument = await this.$http.create(cartItemDocument);
+
+        // Set cart id
+        this.$cookie.set('cart-id', cartItemResponseDocument.getData().getRelationshipData('cart').getId());
 
         // Cart item created - dispatch event
         this.$event.$emit('cart-item-created', cartItemResponseDocument);

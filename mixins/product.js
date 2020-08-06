@@ -42,21 +42,23 @@ export default {
       // Get product
       this._getProduct();
 
+      // Listen to cart item created event
+      this.$event.$on('cart-item-created', cartItemDocument => {
+        this.isCreatingCartItem = false;
+      });
+
+      // Listen to create cart item failed event
+      this.$event.$on('create-cart-item-failed', e => {
+        this.isCreatingCartItem = false;
+      });
+
       // Listen to cart loaded event
       this.$event.$on('cart-loaded', cartDocument => {
-
-        // Ignore if not adding to cart or no selected variant
-        if (!this.isCreatingCartItem) {
-          return;
-        }
 
         if (!this.selectedVariant) {
           this.isCreatingCartItem = false;
           return;
         }
-        
-        // Try to create cart item
-        this.createCartItem(this.selectedVariant.getId(), this.productQuantity);
 
       });
 
@@ -142,8 +144,8 @@ export default {
       this.isCreatingCartItem = true;
       this.createCartItemErrors = [];
 
-      // Trigger reload cart event
-      this.$event.$emit('reload-cart');
+      // Try to create cart item
+      this.createCartItem(this.selectedVariant.getId(), this.productQuantity);
 
     }
 

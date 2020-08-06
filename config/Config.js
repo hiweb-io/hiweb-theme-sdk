@@ -90,7 +90,7 @@ class Config {
   setDriver(driver) {
 
     // Check driver
-    let validDrivers = ['text-input', 'textarea-input', 'wysiwyg-input', 'select-input', 'multi-select-input', 'color-input', 'menu-selector', 'image-selector', 'product-selector', 'collection-selector'];
+    let validDrivers = ['text-input', 'textarea-input', 'wysiwyg-input', 'select-input', 'multi-select-input', 'color-input', 'datetime-input', 'menu-selector', 'image-selector', 'product-selector', 'collection-selector'];
     if (validDrivers.indexOf(driver) === -1) {
       console.log('Invalid config driver value. Valid values are: ' + JSON.stringify(validDrivers));
       return;
