@@ -49,7 +49,7 @@ export default {
     Vue.component('hiweb-theme-block', HiwebThemeBlock);
 
     // Api endpoint
-    const endpoint = ((typeof window.$hiweb === 'object' && window.$hiweb.apiEndpoint) || process.env.VUE_APP_API_ENDPOINT) || 'https://hiweb.io/api/';
+    const endpoint = ((typeof window.$hiwebData === 'object' && window.$hiwebData.apiEndpoint) || process.env.VUE_APP_API_ENDPOINT) || 'https://hiweb.io/api/';
     Vue.prototype.$apiEndpoint = endpoint;
 
     // JsonApi class
@@ -193,8 +193,8 @@ export default {
     }
 
     // If menusDocument injected
-    if (typeof window.$hiweb === 'object' && typeof window.$hiweb.menusDocument === 'object') {
-      store.commit('setMenusDocument', new JsonApi(window.$hiweb.menusDocument));
+    if (typeof window.$hiwebData === 'object' && typeof window.$hiwebData.documents.menus === 'object') {
+      store.commit('setMenusDocument', new JsonApi(window.$hiwebData.documents.menus));
     } else {
 
       // Example menu if no data set

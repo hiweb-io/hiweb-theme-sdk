@@ -98,7 +98,13 @@ export default {
       try {
 
         // Get
-        this.productDocument = await this.$http.find('products', this.handle);
+        if (typeof window.$hiwebData === 'object' 
+          && typeof window.$hiwebData.documents === 'object' 
+          && typeof window.$hiwebData.documents['product-' + this.handle] === 'object') {
+          this.productDocument = new JsonApi(window.$hiwebData.documents['product-' + this.handle]);
+        } else {
+          this.productDocument = await this.$http.find('products', this.handle);
+        }
 
         // Emit event
         this.$event.$emit('view-product', this.productDocument);
