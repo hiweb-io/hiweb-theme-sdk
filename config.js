@@ -85,10 +85,10 @@ class Config {
     }
 
     // If theme config injected to window super object
-    if (typeof window.$hiweb === 'object' && typeof window.$hiweb.themeConfig !== 'undefined') {
+    if (typeof window.$hiwebData === 'object' && typeof window.$hiwebData.themeConfig !== 'undefined') {
 
       // Parse
-      this.parse(window.$hiweb.themeConfig);
+      this.parse(window.$hiwebData.themeConfig);
 
       // Update DOM
       window.dispatchEvent(new Event('force-update'));

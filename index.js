@@ -49,7 +49,7 @@ export default {
     Vue.component('hiweb-theme-block', HiwebThemeBlock);
 
     // Api endpoint
-    const endpoint = ((typeof window.$hiwebData === 'object' && window.$hiwebData.apiEndpoint) || process.env.VUE_APP_API_ENDPOINT) || 'https://hiweb.io/api/';
+    const endpoint = ((typeof window.$hiwebData === 'object' && window.$hiwebData.apiEndpoint) ? window.$hiwebData.apiEndpoint : process.env.VUE_APP_API_ENDPOINT) || 'https://hiweb.io/api/';
     Vue.prototype.$apiEndpoint = endpoint;
 
     // JsonApi class
