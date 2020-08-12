@@ -49,6 +49,15 @@ export default {
     };
   },
 
+  created() {
+
+    // If cart present
+    if (this.cart && this.cart.getRelationshipData('invoice')) {
+      this.presetAddresses(this.cart.getRelationshipData('invoice'));
+    }
+
+  },
+
   methods: {
 
     /**
@@ -77,32 +86,8 @@ export default {
           return;
         }
 
-        // Shipping & billing address
-        let shippingAddress = invoice.getRelationshipData('shipping_address');
-        let billingAddress = invoice.getRelationshipData('billing_address');
-        if (shippingAddress && billingAddress) {
-
-          if (shippingAddress.getId() === billingAddress.getId()) {
-            this.checkoutSameAddress = true;
-          } else {
-            this.checkoutSameAddress = false;
-          }
-          
-        }
-
-        // Map shipping address attributes
-        if (shippingAddress) {
-          for (let key in this.shippingAddressAttributes) {
-            this.shippingAddressAttributes[key] = shippingAddress.getAttribute(key);
-          }
-        }
-
-        // Map billing address attribute
-        if (billingAddress) {
-          for (let key in this.billingAddressAttributes) {
-            this.billingAddressAttributes[key] = billingAddress.getAttribute(key);
-          }
-        }
+        // Set addresses
+        this.presetAddresses(invoice);
 
       });
 
@@ -234,6 +219,40 @@ export default {
       }
 
       this.isSavingInvoice = false;
+    },
+
+    /**
+    * Preset addresses
+    */
+    presetAddresses(invoice) {
+
+      // Shipping & billing address
+      let shippingAddress = invoice.getRelationshipData('shipping_address');
+      let billingAddress = invoice.getRelationshipData('billing_address');
+      if (shippingAddress && billingAddress) {
+
+        if (shippingAddress.getId() === billingAddress.getId()) {
+          this.checkoutSameAddress = true;
+        } else {
+          this.checkoutSameAddress = false;
+        }
+        
+      }
+
+      // Map shipping address attributes
+      if (shippingAddress) {
+        for (let key in this.shippingAddressAttributes) {
+          this.shippingAddressAttributes[key] = shippingAddress.getAttribute(key);
+        }
+      }
+
+      // Map billing address attribute
+      if (billingAddress) {
+        for (let key in this.billingAddressAttributes) {
+          this.billingAddressAttributes[key] = billingAddress.getAttribute(key);
+        }
+      }
+
     }
   }
 }
