@@ -51,7 +51,7 @@ export default {
         this.productsDocument = await this.$http.collection('products', {
           params: {
             _query: JSON.stringify(this.productsFilter),
-            sort: this.postsSort,
+            sort: this.productsSort,
             page: this.page,
             limit: this.limit
           }
@@ -80,7 +80,7 @@ export default {
       this._getProducts();
     },
 
-    postsSort: function() {
+    productsSort: function() {
       this._getProducts();
     }
   }
