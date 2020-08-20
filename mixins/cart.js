@@ -113,7 +113,7 @@ export default {
     * @param string Variant ID
     * @param integer Qty
     */
-    async createCartItem(variantId, quantity) {
+    async createCartItem(variantId, quantity, note) {
 
 
       // Is loading cart state
@@ -129,7 +129,8 @@ export default {
         let cartItemResource = cartItemDocument.makeResource();
         cartItemResource.setType('cart_items');
         cartItemResource.setAttributes({
-          quantity: quantity || 1
+          quantity: quantity || 1,
+          note: note || ''
         });
 
         // Set cart relationship if present

@@ -4,6 +4,9 @@ import { JsonApi, Http } from 'jsonapi-client-js';
 // Event instance
 import event from './event';
 
+// Hook manager
+import hook from './hook';
+
 // Store
 import store from './store';
 
@@ -64,6 +67,9 @@ export default {
 
     // Event instance
     Vue.prototype.$event = event;
+
+    // Hook instance
+    Vue.prototype.$hook = hook;
 
     // Cart document is global
     const cartDocument = new JsonApi;
@@ -177,6 +183,7 @@ export default {
       JsonApi,
       http,
       event,
+      hook,
       image,
       cookie,
       currency

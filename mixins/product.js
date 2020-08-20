@@ -98,16 +98,20 @@ export default {
       try {
 
         // Get
+        let waitTime = 0;
         if (typeof window.$hiwebData === 'object' 
           && typeof window.$hiwebData.documents === 'object' 
           && typeof window.$hiwebData.documents['product-' + this.handle] === 'object') {
           this.productDocument = new JsonApi(window.$hiwebData.documents['product-' + this.handle]);
+          waitTime = 100;
         } else {
           this.productDocument = await this.$http.find('products', this.handle);
         }
 
-        // Emit event
-        this.$event.$emit('view-product', this.productDocument);
+        // Emit event after 100ms (wait for event listeners)
+        setTimeout(() => {
+          this.$event.$emit('view-product', this.productDocument);
+        }, waitTime);
 
         // Set default option value
         let options = this.productDocument.getData().getAttribute('options');
@@ -150,8 +154,17 @@ export default {
       this.isCreatingCartItem = true;
       this.createCartItemErrors = [];
 
+      // Run hooks
+      let data = {
+        variantId: this.selectedVariant.getId(),
+        quantity: this.productQuantity,
+        note: null
+      };
+
+      data = this.$hook.run('add-to-cart', data);
+
       // Try to create cart item
-      this.createCartItem(this.selectedVariant.getId(), this.productQuantity);
+      this.createCartItem(data.variantId, data.quantity, data.note);
 
     }
 
