@@ -162,6 +162,10 @@ export default {
       };
 
       data = this.$hook.run('add-to-cart', data);
+      if (!data) {
+        this.isCreatingCartItem = false;
+        return;
+      }
 
       // Try to create cart item
       this.createCartItem(data.variantId, data.quantity, data.note);

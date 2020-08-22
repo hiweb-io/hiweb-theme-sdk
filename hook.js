@@ -48,6 +48,11 @@ class Hook {
     for (let callbackName in this.hooks[hook]) {
       let callback = this.hooks[hook][callbackName];
       data = callback(data);
+      
+      // Break if null
+      if (!data) {
+        return;
+      }
     }
 
     return data;
