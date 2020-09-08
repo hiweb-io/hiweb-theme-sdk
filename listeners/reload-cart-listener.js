@@ -48,6 +48,13 @@ export default () => {
         cartResponseDocument = await Vue.prototype.$http.find('carts', cookie.get('cart-id'));
       }
 
+      // If cart is locked - remove and reload
+      if (cartResponseDocument.getData().getAttribute('is_locked')) {
+        cookie.remove('cart-id');
+        event.$emit('reload-cart');
+        return;
+      }
+
       // Save cart id to cookie
       cookie.set('cart-id', cartResponseDocument.getData().getId(), {
         samesite: 'Strict'

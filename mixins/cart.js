@@ -115,6 +115,7 @@ export default {
     */
     async createCartItem(variantId, quantity, note) {
 
+      quantity = parseInt(quantity);
 
       // Is loading cart state
       store.commit('setIsLoadingCart', true);
@@ -123,6 +124,15 @@ export default {
 
         // Reset errors
         this.createCartItemErrors = [];
+
+        // Check if item already in cart
+        let existingCartItem = this.cartItems ? this.cartItems.find(c => {
+          return c.getRelationshipData('variant').getId() === variantId && ((!c.getAttribute('note') && !note) || c.getAttribute('note') === note);
+        }) : null;
+
+        if (existingCartItem) {
+          quantity += existingCartItem.getAttribute('quantity');
+        }
 
         // Build cart item document
         let cartItemDocument = new JsonApi;
@@ -159,14 +169,17 @@ export default {
 
       } catch (e) {
 
+        // Dis patch event
+        this.$event.$emit('create-cart-item-failed', e);
+
+        // Cart locked - make new cart and try again
         if (e.response.status === 410) {
           this.$cookie.remove('cart-id');
+          this.createCartItem(variantId, quantity, note);
+          return;
         }
 
         this.createCartItemErrors = this.$handleException(e);
-
-        // Dis patch event
-        this.$event.$emit('create-cart-item-failed', e);
       }
 
       // Turn signal off
