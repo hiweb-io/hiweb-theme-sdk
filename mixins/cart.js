@@ -213,6 +213,13 @@ export default {
 
       } catch (e) {
 
+        // Cart locked - make new cart
+        if (e.response.status === 410) {
+          this.$cookie.remove('cart-id');
+          this.$event.$emit('reload-cart');
+          return;
+        }
+
         // Dispatch delete-cart-item-failed event
         this.$event.$emit('delete-cart-item-failed', e);
       }
