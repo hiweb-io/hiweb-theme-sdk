@@ -254,5 +254,29 @@ export default {
       }
 
     }
+  },
+
+  watch: {
+
+    checkoutSameAddress: function(is) {
+
+      if (!is) {
+        this.billingAddressAttributes = {
+          email: '',
+          phone: '',
+          first_name: '',
+          last_name: '',
+          address1: '',
+          address2: '',
+          country_code: 'US',
+          province: '',
+          city: '',
+          postal_code: ''
+        };
+        return;
+      }
+
+      this.billingAddressAttributes = this.shippingAddressAttributes;
+    }
   }
 }
